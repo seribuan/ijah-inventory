@@ -4,6 +4,7 @@ import "time"
 
 //Item
 type BarangKeluar struct {
+	ID           int
 	NoKwitansi   string
 	SKU          *Barang
 	Waktu        *time.Time

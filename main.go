@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sorabel/controllers"
 	"sorabel/models"
 	"sorabel/routes"
@@ -17,10 +16,6 @@ func main() {
 
 	defer db.Close()
 	db.AutoMigrate(&models.Barang{})
-
-	barang := models.Barang{}
-	db.First(&barang, 1)
-	fmt.Println(barang)
 
 	controllers.InitDB(db)
 	router := gin.Default()
