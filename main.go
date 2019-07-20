@@ -1,30 +1,27 @@
 package main
 
 import (
-	"fmt"
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 
-	"github.com/tealeg/xlsx"
+	"sorabel/models"
+	"sorabel/services/importer"
+	"sorabel/services/importer/dbwriter"
 )
 
 //"github.com/jinzhu/gorm"
 //_ "github.com/jinzhu/gorm/dialects/sqlite"
 
 func main() {
-	xlFile, err := xlsx.OpenFile("Toko Ijah.xlsx")
-	if err != nil {
-		fmt.Errorf("Error %v", err)
-	}
+	//importer.Import("Toko Ijah.xlsx")
+	db, _ := gorm.Open("sqlite3", "/tmp/gorm.db")
+	defer db.Close()
+	db.AutoMigrate(&models.Barang{})
 
-	for _, sheet := range xlFile.Sheets {
-		for _, row := range sheet.Rows {
-			for _, cell := range row.Cells {
-				text := cell.String()
-				fmt.Printf("%s\n", text)
-			}
-		}
-	}
-	//db, err := gorm.Open("sqlite3", "/tmp/gorm.db")
-	//defer db.Close()
+	barangWriter := dbwriter.NewBarangWriter(db)
+	importer.Import("Toko Ijah.xlsx", barangWriter)
+
+	//fmt.Printf("%#v", db)
 
 	//if err {
 	//	fmt.Errorf("Something went wrong %v:", err)
