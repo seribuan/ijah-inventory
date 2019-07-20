@@ -1,30 +1,30 @@
 package main
 
 import (
+	"fmt"
+	"sorabel/controllers"
+	"sorabel/models"
+	"sorabel/routes"
+
+	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
-
-	"sorabel/models"
-	"sorabel/services/importer"
-	"sorabel/services/importer/dbwriter"
 )
-
-//"github.com/jinzhu/gorm"
-//_ "github.com/jinzhu/gorm/dialects/sqlite"
 
 func main() {
 	//importer.Import("Toko Ijah.xlsx")
 	db, _ := gorm.Open("sqlite3", "/tmp/gorm.db")
+
 	defer db.Close()
 	db.AutoMigrate(&models.Barang{})
 
-	barangWriter := dbwriter.NewBarangWriter(db)
-	importer.Import("Toko Ijah.xlsx", barangWriter)
+	barang := models.Barang{}
+	db.First(&barang, 1)
+	fmt.Println(barang)
 
-	//fmt.Printf("%#v", db)
-
-	//if err {
-	//	fmt.Errorf("Something went wrong %v:", err)
-	//}
+	controllers.InitDB(db)
+	router := gin.Default()
+	routes.AddRoutes(router)
+	router.Run()
 
 }
