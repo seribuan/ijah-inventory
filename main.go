@@ -15,7 +15,7 @@ func main() {
 	db, _ := gorm.Open("sqlite3", "/tmp/gorm.db")
 
 	defer db.Close()
-	db.AutoMigrate(&models.Barang{})
+	db.AutoMigrate(&models.Barang{}, &models.BarangMasuk{})
 
 	controllers.InitDB(db)
 	router := gin.Default()
