@@ -30,8 +30,12 @@ func (b *BarangMasukController) Post(c *gin.Context) {
 		return
 	}
 	barangMasuk.Waktu = time.Now()
-
+	//TODO: Transaction
 	db.Create(&barangMasuk)
+	var barang models.Barang
+	db.First(&barang, barangMasuk.BarangID)
+	barang.Jumlah += barangMasuk.JumlahDiterima
+	db.Save(&barang)
 	c.JSON(http.StatusOK, barangMasuk)
 }
 

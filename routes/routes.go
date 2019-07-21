@@ -18,13 +18,15 @@ func AddRoutes(router *gin.Engine) {
 	router.GET("/barang_masuk/:id", barangMasukController.Get)
 	router.GET("/barang_masuk", barangMasukController.GetAll)
 	router.POST("/barang_masuk", barangMasukController.Post)
-	router.PUT("/barang_masuk/:id", barangMasukController.Put)
+	//router.PUT("/barang_masuk/:id", barangMasukController.Put)
+	//fungsi di atas didisable karena agak aneh kalau berhubungan dengan jumlah di barang
 
 	barangKeluarController := new(controllers.BarangKeluarController)
 	router.GET("/barang_keluar/:id", barangKeluarController.Get)
 	router.GET("/barang_keluar", barangKeluarController.GetAll)
 	router.POST("/barang_keluar", barangKeluarController.Post)
-	router.PUT("/barang_keluar/:id", barangKeluarController.Put)
+	//router.PUT("/barang_keluar/:id", barangKeluarController.Put)
+	//fungsi di atas didisable karena agak aneh kalau berhubungan dengan jumlah di barang
 
 	laporanController := new(controllers.LaporanController)
 	router.GET("/laporan/barang", laporanController.GetLaporanNilai)
