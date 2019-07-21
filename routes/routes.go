@@ -26,4 +26,6 @@ func AddRoutes(router *gin.Engine) {
 	router.POST("/barang_keluar", barangKeluarController.Post)
 	router.PUT("/barang_keluar/:id", barangKeluarController.Put)
 
+	laporanController := new(controllers.LaporanController)
+	router.GET("/laporan/barang", laporanController.GetLaporanNilai)
 }
