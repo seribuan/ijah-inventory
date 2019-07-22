@@ -27,10 +27,13 @@ func AddRoutes(router *gin.Engine) {
 	router.GET("/barang_keluar/:id", barangKeluarController.Get)
 	router.GET("/barang_keluar", barangKeluarController.GetAll)
 	router.POST("/barang_keluar", barangKeluarController.Post)
+	router.GET("/barang_keluar.csv", barangKeluarController.Export)
 	//router.PUT("/barang_keluar/:id", barangKeluarController.Put)
 	//route di atas didisable karena agak aneh kalau berhubungan dengan jumlah di barang
 
 	laporanController := new(controllers.LaporanController)
 	router.GET("/laporan/barang", laporanController.GetLaporanNilai)
+	router.GET("/laporan/barang.csv", laporanController.GetLaporanNilaiCSV)
 	router.GET("/laporan/penjualan", laporanController.GetLaporanPenjualan)
+	router.GET("/laporan/penjualan.csv", laporanController.GetLaporanPenjualanCSV)
 }

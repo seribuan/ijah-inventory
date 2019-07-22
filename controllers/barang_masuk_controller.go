@@ -1,10 +1,10 @@
 package controllers
 
 import (
-	"encoding/csv"
 	"fmt"
 	"net/http"
 	"sorabel/models"
+	"sorabel/services/exporter"
 	"strconv"
 	"time"
 
@@ -56,7 +56,7 @@ func (b *BarangMasukController) Put(c *gin.Context) {
 func (b *BarangMasukController) Export(c *gin.Context) {
 	var barang2Masuk []models.BarangMasuk
 	db.Preload("Barang").Find(&barang2Masuk)
-	w := csv.NewWriter(c.Writer)
+
 	var csvData [][]string
 
 	for _, barangMasuk := range barang2Masuk {
@@ -70,11 +70,8 @@ func (b *BarangMasukController) Export(c *gin.Context) {
 			strconv.Itoa(barangMasuk.JumlahDiterima),
 			harga,
 			total,
-			barangMasuk.NoKwitansi})
+			barangMasuk.NoKwitansi,
+		})
 	}
-	c.Header("Content-Description", "File Transfer")
-	c.Header("Content-Transfer-Encoding", "binary")
-	c.Header("Content-Disposition", "attachment; filename=barang.csv")
-	c.Header("Content-Type", "application/octet-stream")
-	w.WriteAll(csvData)
+	exporter.ExportCSV(c, csvData)
 }

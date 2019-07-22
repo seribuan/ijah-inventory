@@ -1,8 +1,11 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"sorabel/models"
+	"sorabel/services/exporter"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -49,4 +52,27 @@ func (b *BarangKeluarController) Put(c *gin.Context) {
 	}
 	db.Save(&barangKeluar)
 	c.JSON(http.StatusOK, barangKeluar)
+}
+
+func (b *BarangKeluarController) Export(c *gin.Context) {
+	var barang2Keluar []models.BarangKeluar
+	db.Preload("Barang").Find(&barang2Keluar)
+
+	var csvData [][]string
+
+	for _, barangKeluar := range barang2Keluar {
+		harga := fmt.Sprintf("%.2f", barangKeluar.Harga)
+		total := fmt.Sprintf("%.2f", (float64(barangKeluar.JumlahKeluar) * barangKeluar.Harga))
+		csvData = append(csvData, []string{
+			barangKeluar.Waktu.String(),
+			barangKeluar.Barang.SKU,
+			barangKeluar.Barang.Nama,
+			strconv.Itoa(barangKeluar.JumlahKeluar),
+			harga,
+			total,
+			barangKeluar.Catatan,
+		})
+	}
+
+	exporter.ExportCSV(c, csvData)
 }
