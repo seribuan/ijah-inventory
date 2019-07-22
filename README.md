@@ -1,9 +1,11 @@
-Ijah Inventory REST API
+##Ijah Inventory REST API
 
 Used third party package:
+```
 go get github.com/gin-gonic/gin
 go get github.com/jinzhu/gorm
 go get github.com/jinzhu/gorm/dialects/sqlite
+```
 
 After that, to run, simply run go run main.go
 ```
@@ -27,8 +29,8 @@ After that, to run, simply run go run main.go
 ```
 
 This is the list of the API.
-For the PUT (update) API, I didn't implement it based on the assumption it shouldn't be allowed to edit Kwitansi (but the code is there)
-And also not implement delete for the same assumption
+For the PUT (update) API, I didn't implement it based on the assumption it shouldn't be allowed to edit Kwitansi (but the code is there). I also didn't implement delete for the same assumption
+
 For the data, I use internal auto-increment IDs as the primary key, so it will be easier to generate unique key
 For the Laporan Penjualan, I just noticed that it has from-end date filters, that I haven't implemented.
 
