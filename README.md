@@ -40,12 +40,14 @@ curl -XPOST -d 'barang_id=4&jumlah_keluar=1&catatan=Hilang&harga=100000' 'localh
 ```
 
 For the import, right now there is no REST API, but it can be run in main.go by running:
-```barangWriter := dbwriter.NewBarangWriter(db)
+```
+barangWriter := dbwriter.NewBarangWriter(db)
 importer.ImportBarang("Toko Ijah.xlsx", barangWriter)
 barangMasukWriter := dbwriter.NewBarangMasukWriter(db)
 importer.ImportBarangMasuk("Toko Ijah.xlsx", barangMasukWriter)
 barangKeluarWriter := dbwriter.NewBarangKeluarWriter(db)
-importer.ImportBarangKeluar("Toko Ijah.xlsx", barangKeluarWriter)```
+importer.ImportBarangKeluar("Toko Ijah.xlsx", barangKeluarWriter)
+```
 
 I use the design for the Import Functionality so that it can be extended easily, for other things that's not DB
 (I mistakenly thought that the import is a mandatory feature, that's why in the log it can be seen that I worked on it first)
