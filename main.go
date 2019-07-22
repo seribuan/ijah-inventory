@@ -4,8 +4,6 @@ import (
 	"sorabel/controllers"
 	"sorabel/models"
 	"sorabel/routes"
-	"sorabel/services/importer"
-	"sorabel/services/importer/dbwriter"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
@@ -20,10 +18,10 @@ func main() {
 	db.AutoMigrate(&models.Barang{}, &models.BarangMasuk{}, &models.BarangKeluar{})
 
 	controllers.InitDB(db)
-	barangKeluarWriter := dbwriter.NewBarangKeluarWriter(db)
-	importer.ImportBarangKeluar("Toko Ijah.xlsx", barangKeluarWriter)
-
-	//fmt.Println(services.GenerateLaporanPenjualan(db))
+	/*
+		barangKeluarWriter := dbwriter.NewBarangKeluarWriter(db)
+		importer.ImportBarangKeluar("Toko Ijah.xlsx", barangKeluarWriter)
+	*/
 
 	router := gin.Default()
 	routes.AddRoutes(router)
