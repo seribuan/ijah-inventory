@@ -18,8 +18,8 @@ type BarangWriter struct {
 	db *gorm.DB
 }
 
-func (b *BarangWriter) Write(SKU string, namaBarang string, jumlah int) {
-	barang := models.Barang{SKU: SKU, Nama: namaBarang, Jumlah: jumlah}
+func (b *BarangWriter) Write(sku string, namaBarang string, jumlah int) {
+	barang := models.Barang{SKU: sku, Nama: namaBarang, Jumlah: jumlah}
+	b.db.Create(&barang)
 	fmt.Println(barang)
-	//b.db.Create(&barang)
 }

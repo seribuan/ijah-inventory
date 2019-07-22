@@ -5,8 +5,7 @@ import "time"
 //Item
 type BarangKeluar struct {
 	ID           int
-	NoKwitansi   string `form:"no_kwitansi" binding:"required"`
-	BarangID     int    `form:"barang_id" binding:"required"`
+	BarangID     int `form:"barang_id" binding:"required"`
 	Barang       *Barang
 	Waktu        time.Time
 	JumlahKeluar int     `form:"jumlah_keluar" binding:"required"`
