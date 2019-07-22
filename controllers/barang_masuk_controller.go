@@ -1,8 +1,11 @@
 package controllers
 
 import (
+	"encoding/csv"
+	"fmt"
 	"net/http"
 	"sorabel/models"
+	"strconv"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -48,4 +51,30 @@ func (b *BarangMasukController) Put(c *gin.Context) {
 	}
 	db.Save(&barangMasuk)
 	c.JSON(http.StatusOK, barangMasuk)
+}
+
+func (b *BarangMasukController) Export(c *gin.Context) {
+	var barang2Masuk []models.BarangMasuk
+	db.Preload("Barang").Find(&barang2Masuk)
+	w := csv.NewWriter(c.Writer)
+	var csvData [][]string
+
+	for _, barangMasuk := range barang2Masuk {
+		harga := fmt.Sprintf("%.2f", barangMasuk.Harga)
+		total := fmt.Sprintf("%.2f", (float64(barangMasuk.JumlahPesan) * barangMasuk.Harga))
+		csvData = append(csvData, []string{
+			barangMasuk.Waktu.String(),
+			barangMasuk.Barang.SKU,
+			barangMasuk.Barang.Nama,
+			strconv.Itoa(barangMasuk.JumlahPesan),
+			strconv.Itoa(barangMasuk.JumlahDiterima),
+			harga,
+			total,
+			barangMasuk.NoKwitansi})
+	}
+	c.Header("Content-Description", "File Transfer")
+	c.Header("Content-Transfer-Encoding", "binary")
+	c.Header("Content-Disposition", "attachment; filename=barang.csv")
+	c.Header("Content-Type", "application/octet-stream")
+	w.WriteAll(csvData)
 }
