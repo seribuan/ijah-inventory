@@ -6,8 +6,13 @@ go get github.com/gin-gonic/gin
 go get github.com/jinzhu/gorm
 go get github.com/jinzhu/gorm/dialects/sqlite
 ```
+Please put this application on $GOPATH/sorabel
 
-After that, to run, simply run go run main.go
+After that, to run, simply run:
+```
+go run main.go
+```
+
 ```
 [GIN-debug] GET    /barang/:id               --> sorabel/controllers.(*BarangController).Get-fm (3 handlers)
 [GIN-debug] GET    /barang                   --> sorabel/controllers.(*BarangController).GetAll-fm (3 handlers)
