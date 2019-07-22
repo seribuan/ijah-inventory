@@ -6,7 +6,7 @@ go get github.com/gin-gonic/gin
 go get github.com/jinzhu/gorm
 go get github.com/jinzhu/gorm/dialects/sqlite
 ```
-Please put this application on $GOPATH/sorabel
+Please put this application in $GOPATH/sorabel
 
 After that, to run, simply run:
 ```
