@@ -3,7 +3,6 @@ package controllers
 import (
 	"net/http"
 	"sorabel/models"
-	"sorabel/services"
 
 	"github.com/gin-gonic/gin"
 )
@@ -37,6 +36,6 @@ func (b *BarangController) Put(c *gin.Context) {
 	c.JSON(http.StatusOK, barang)
 }
 
-func (b *BarangController) GetLaporanNilai(c *gin.Context) {
-	c.JSON(http.StatusOK, services.GenerateLaporanNilai(db))
+func (b *BarangController) Export(c *gin.Context) {
+
 }

@@ -18,7 +18,7 @@ func main() {
 	db.AutoMigrate(&models.Barang{}, &models.BarangMasuk{}, &models.BarangKeluar{})
 
 	controllers.InitDB(db)
-	//fmt.Println(services.GenerateHargaBarang(db))
+	//fmt.Println(services.GenerateLaporanPenjualan(db))
 
 	router := gin.Default()
 	routes.AddRoutes(router)

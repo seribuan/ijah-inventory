@@ -12,3 +12,7 @@ type LaporanController struct{}
 func (l *LaporanController) GetLaporanNilai(c *gin.Context) {
 	c.JSON(http.StatusOK, services.GenerateLaporanNilai(db))
 }
+
+func (l *LaporanController) GetLaporanPenjualan(c *gin.Context) {
+	c.JSON(http.StatusOK, services.GenerateLaporanPenjualan(db))
+}

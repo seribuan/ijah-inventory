@@ -12,7 +12,7 @@ type LaporanNilaiBarang struct {
 	JumlahSKU    int
 	TotalBarang  int
 	TotalNilai   float64
-	Detail       []NilaiBarangDetail
+	Detail2      []NilaiBarangDetail
 }
 
 type NilaiBarangDetail struct {
@@ -46,9 +46,9 @@ func GenerateLaporanNilai(db *gorm.DB) LaporanNilaiBarang {
 		var barang2Masuk []models.BarangMasuk
 		db.Where("barang_id = ?", barang.ID).Find(&barang2Masuk)
 
-		nilai := generateDetail(barang, mapHarga[barang.ID])
-		laporan.TotalNilai += nilai.Total
-		laporan.Detail = append(laporan.Detail, nilai)
+		detail := generateDetail(barang, mapHarga[barang.ID])
+		laporan.TotalNilai += detail.Total
+		laporan.Detail2 = append(laporan.Detail2, detail)
 
 	}
 
